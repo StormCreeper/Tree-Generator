@@ -17,8 +17,6 @@ int main() {
 	glfwSetMouseButtonCallback(Scene::getWindow(), (GLFWmousebuttonfun)Scene::mouse_button_callback);
 	glfwSetInputMode(Scene::getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
-	//glfwSetWindowShouldClose(Scene::getWindow(), true);
-
 	while (!glfwWindowShouldClose(Scene::getWindow())) {
 		currentTime = (float)glfwGetTime();
 		deltaTime = currentTime - lastTime;

@@ -11,7 +11,7 @@ private:
 
 	static unsigned int shader;
 
-	static Tree tree;
+	static Tree tree[];
 
 public:
 	static void init(int width, int height);

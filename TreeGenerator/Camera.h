@@ -21,7 +21,6 @@ public:
 
 	void setUniforms(unsigned int shader, bool reset);
 	void updateModel(unsigned int shader);
-	void setSkyboxUniforms(unsigned int shader);
 	void translate(glm::vec3 vector);
 	void rotate(float angle, glm::vec3 axis);
 	void identity();

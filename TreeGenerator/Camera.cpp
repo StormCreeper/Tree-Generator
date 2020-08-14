@@ -2,7 +2,7 @@
 
 Camera::Camera(float aspect, glm::vec3 pos) : lastX(0), lastY(0), speed(7.0f) {
 	projection = glm::mat4(1.0f);
-	projection = glm::perspective(glm::radians<float>(80), aspect, 0.01f, 300.0f);
+	projection = glm::perspective(glm::radians<float>(80), aspect, 0.01f, 1200.0f);
 	view = glm::mat4(1.0f);
 	model = glm::mat4(1.0f);
 	position = pos;
@@ -18,7 +18,7 @@ Camera::Camera(float aspect, glm::vec3 pos) : lastX(0), lastY(0), speed(7.0f) {
 }
 
 void Camera::identity() {
-	view = glm::mat4(1.0f);
+	//view = glm::mat4(1.0f);
 	model = glm::mat4(1.0f);
 }
 
@@ -32,12 +32,6 @@ void Camera::updateModel(unsigned int shader) {
 	setUniformM4(shader, "pv", projection * view);
 	setUniformM4(shader, "model", model);
 	setUniformVec3(shader, "viewPos", position);
-}
-void Camera::setSkyboxUniforms(unsigned int shader) {
-	//identity();
-	view = glm::lookAt(glm::vec3(0, 0, 0), front, up);
-	view = glm::mat4(glm::mat3(view));
-	setUniformM4(shader, "pv", projection * view);
 }
 void Camera::translate(glm::vec3 vector) {
 	model = glm::translate(model, vector);
