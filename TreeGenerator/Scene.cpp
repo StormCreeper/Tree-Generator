@@ -1,19 +1,21 @@
 #include "Scene.h"
-#include <time.h>
+#include <ctime>
 
-#define NUMTREES 5
+constexpr auto NUMTREES = 1;
 
 int Scene::width(800);
 int Scene::height(600);
-GLFWwindow* Scene::window(NULL);
-Camera* Scene::camera(NULL);
+GLFWwindow* Scene::window(nullptr);
+Camera* Scene::camera(nullptr);
 
 unsigned int Scene::shader;
 Tree Scene::tree[NUMTREES * NUMTREES];
 
 
 void Scene::init(int _width, int _height) {
-	srand(time(0));
+	std::cout << "Welcome to this project\nThis is a tree generator, using a fractal approach, each branch make other branches of a smaller size grow on it, in a recursive pattern.\nThe rendering is done by a custom engine (made during the jam) using modern OpenGL techniques.\nUsage:\nWASD to move, mouse to rotate the camera, click to generate a new tree and escape to exit\n";
+	system("pause");
+	srand(time(nullptr));
 	width = _width;
 	height = _height;
 	glfwInit();
@@ -22,8 +24,8 @@ void Scene::init(int _width, int _height) {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_SAMPLES, 8);
 
-	window = glfwCreateWindow(width, height, "Tree Generator - 0000 FPS", NULL, NULL);
-	if (window == NULL) {
+	window = glfwCreateWindow(width, height, "Tree Generator - 0000 FPS", nullptr, nullptr);
+	if (window == nullptr) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		system("PAUSE");
@@ -39,7 +41,7 @@ void Scene::init(int _width, int _height) {
 	initializeOpenGL();
 	createShaders();
 
-	camera = new Camera((float)width / (float)height, glm::vec3(0, 0, 0));
+	camera = new Camera((float)width / (float)height, glm::vec3(0, 12, -20));
 }
 void Scene::deleteScene() {
 	delete camera;
@@ -55,8 +57,8 @@ void Scene::initializeOpenGL() {
 
 	glViewport(0, 0, width, height);
 	glClearColor(0.1f, 0.5f, 1.0f , 1);
-	for (int i = 0; i < NUMTREES * NUMTREES; i++) {
-		tree[i].init();
+	for (auto & t : tree) {
+		t.init();
 	}
 }
 
@@ -65,6 +67,7 @@ void Scene::createShaders() {
 }
 
 void Scene::renderFrame(float time, float deltaTime) {
+	glfwPollEvents();
 	camera->updateInput(window, deltaTime);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
@@ -72,7 +75,7 @@ void Scene::renderFrame(float time, float deltaTime) {
 
 	setUniformFloat(shader, "iTime", float(glfwGetTime()));
 
-	camera->setUniforms(shader, 1);
+	camera->setUniforms(shader, true);
 	camera->updateModel(shader);
 	
 	for (int i = 0; i < NUMTREES; i++) {
@@ -83,15 +86,13 @@ void Scene::renderFrame(float time, float deltaTime) {
 			tree[i + j * NUMTREES].draw(shader);
 		}
 	}
-
 	glfwSwapBuffers(window);
-	glfwPollEvents();
 }
 
 void Scene::mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
 	if (action == GLFW_PRESS) {
-		for (int i = 0; i < NUMTREES * NUMTREES; i++) {
-			tree[i].generateNewTree();
+		for (auto & t : tree) {
+			t.generateNewTree();
 		}
 	}
 }

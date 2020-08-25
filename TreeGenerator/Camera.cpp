@@ -44,9 +44,9 @@ void Camera::updateInput(GLFWwindow* window, float deltaTime) {
 	float acc = 1;
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) acc *= 8.0f;
 	glm::vec3 tmpFront = glm::normalize(glm::vec3(front.x, 0, front.z));
-	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) velocity += acc * speed * tmpFront;
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) velocity += acc * speed * tmpFront;
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) velocity -= acc * speed * tmpFront;
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) velocity -= acc * speed * right;
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) velocity -= acc * speed * right;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) velocity += acc * speed * right;
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) velocity.y = 10;
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) position -= acc * speed * deltaTime * worldUp;

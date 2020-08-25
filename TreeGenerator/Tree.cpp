@@ -19,7 +19,7 @@ void Tree::init() {
 	pushTriangle(&vertices, p1, p2, p3, 1.0f);
 	pushTriangle(&vertices, p1, p3, p4, 1.0f);
 	
-	branch(&vertices, position, rotation, 8, 11);
+	branch(&vertices, position, rotation, rand() % 8 + 8, 11);
 
 	float *verticesArray = (float*) malloc(vertices.size() * sizeof(float));
 	std::copy(vertices.begin(), vertices.end(), verticesArray);
@@ -32,7 +32,7 @@ void Tree::init() {
 
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), verticesArray, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*) 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*) nullptr);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*) (3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
