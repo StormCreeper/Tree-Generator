@@ -3,6 +3,12 @@ This program is made using c++ and OpenGL. It is mimicking fractal patterns usin
 It has been entirely made during the Tech with Tim code jam.
 
 ## Usage
+### To run (for Windows):
+Just run the .exe file in the Release folder.
+You may have warnings from your antivirus.
+
+### To compile:
+
 There is a sln file for compiling with visual studio, but you can compile with the compiler you want (you may have to change the code depending on your compiler).
 You will have to link :
 -[GLM](https://glm.g-truc.net/0.9.9/index.html)
