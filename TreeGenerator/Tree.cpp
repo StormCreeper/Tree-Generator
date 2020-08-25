@@ -19,7 +19,7 @@ void Tree::init() {
 	pushTriangle(&vertices, p1, p2, p3, 1.0f);
 	pushTriangle(&vertices, p1, p3, p4, 1.0f);
 	
-	branch(&vertices, position, rotation, rand() % 8 + 8, 11);
+	branch(&vertices, position, rotation, rand() % 8 + 8, 9);
 
 	float *verticesArray = (float*) malloc(vertices.size() * sizeof(float));
 	std::copy(vertices.begin(), vertices.end(), verticesArray);
@@ -66,6 +66,8 @@ void Tree::branch(std::vector<float>* vertices, glm::fvec3 position, glm::fquat 
 		for (int i = 0; i < nbranches; i++) {
 			branch(vertices, point1, rotation * glm::fquat(glm::fvec3(cosf(i / nbranches * PI * 2.0f + offsetAngle) * 0.5f, sinf(i / nbranches * PI * 2.0f + offsetAngle) * 0.5f, 0)), length * (0.7f + (rand() % 100) / 200.0f - 0.25f), depth - 1);
 		}
+
+		if (/*rand() % 10 > 7 && */length > 3) branch(vertices, point1, rotation, length * 0.9, depth - 1);
 	}
 }
 void Tree::update(float deltaTime) {
