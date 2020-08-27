@@ -6,6 +6,11 @@ const float PI = 3.1415926535f;
 
 void Tree::init() {
 
+	pineLike = rand() % 100;
+	medBranchRot = (rand() % 100) / 100.0f;
+	branchFree = (rand() % 100) / 100.0f;
+	numBranches = rand() % 3 + 4;
+
 	std::vector<float> vertices;
 
 	glm::fquat rotation = glm::fquat(glm::vec3(-PI / 2.0f, 0, 0));
@@ -19,7 +24,7 @@ void Tree::init() {
 	pushTriangle(&vertices, p1, p2, p3, 1.0f);
 	pushTriangle(&vertices, p1, p3, p4, 1.0f);
 	
-	branch(&vertices, position, rotation, rand() % 8 + 8, 9);
+	branch(&vertices, position, rotation, rand() % 8 + 8, 12);
 
 	float *verticesArray = (float*) malloc(vertices.size() * sizeof(float));
 	std::copy(vertices.begin(), vertices.end(), verticesArray);
@@ -47,7 +52,7 @@ void Tree::init() {
 }
 
 void Tree::branch(std::vector<float>* vertices, glm::fvec3 position, glm::fquat rotation, float length, float depth) {
-	if (depth) {
+	if (depth > 0) {
 		glm::fvec3 point1 = position + glm::fvec3(0, 0, length);
 		point1 = position + (rotation * (point1 - position));
 
@@ -59,15 +64,18 @@ void Tree::branch(std::vector<float>* vertices, glm::fvec3 position, glm::fquat 
 
 		addCylinder(vertices, length, length / 8.0f);
 
-		float nbranches = rand() % 5 + 1;
+		float nbranches = rand() % numBranches + 2;
 
 		float offsetAngle = (rand() % 100) / 100.0f * PI * 2.0f;
 		
+		float bigV = medBranchRot + ((rand() % 100) / 100.0f - 0.5f) * branchFree * 0.8f;
+
 		for (int i = 0; i < nbranches; i++) {
-			branch(vertices, point1, rotation * glm::fquat(glm::fvec3(cosf(i / nbranches * PI * 2.0f + offsetAngle) * 0.5f, sinf(i / nbranches * PI * 2.0f + offsetAngle) * 0.5f, 0)), length * (0.7f + (rand() % 100) / 200.0f - 0.25f), depth - 1);
+			float smallV = ((rand() % 100) / 100.0f - 0.5f) * branchFree * 0.2f + bigV;
+			branch(vertices, point1, rotation * glm::fquat(glm::fvec3(cosf(i / nbranches * PI * 2.0f + offsetAngle) * smallV, sinf(i / nbranches * PI * 2.0f + offsetAngle) * smallV, 0)), length * (0.7f + (rand() % 100) / 200.0f - 0.25f), depth - 1 - rand() % 3);
 		}
 
-		if (/*rand() % 10 > 7 && */length > 3) branch(vertices, point1, rotation, length * 0.9, depth - 1);
+		if(rand() % 100 > pineLike) branch(vertices, point1, rotation, length * 0.9, depth - 1);
 	}
 }
 void Tree::update(float deltaTime) {
@@ -78,7 +86,7 @@ void Tree::draw(unsigned int shader) {
 	glDrawArrays(GL_TRIANGLES, 0, vertexCount / 3);
 }
 void Tree::addCylinder(std::vector<float>* vertices, float height, float radius) {
-	int n = std::max(height * 4.0f, 3.0f);
+	int n = std::max(height * 3.0f, 3.0f);
 
 	glm::fvec3 c1(0, height / 2.0f, 0);
 	glm::fvec3 c2(0, -height / 2.0f, 0);

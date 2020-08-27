@@ -6,6 +6,11 @@ class Tree {
 	unsigned int VAO, VBO;
 	unsigned int vertexCount;
 
+	int pineLike;
+	float medBranchRot;
+	float branchFree;
+	int numBranches;
+
 	glm::mat4 transform;
 
 	void pushVertex(std::vector<float>* vertices, float x, float y, float z, float nx, float ny, float nz, float l);
