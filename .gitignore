@@ -16,8 +16,8 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-TreeGenerator/[Rr]elease/
 [Rr]eleases/
+[Rr]elease/
 x64/
 x86/
 [Aa][Rr][Mm]/
