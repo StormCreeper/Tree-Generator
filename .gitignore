@@ -16,7 +16,7 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-TreeGenerator/Release/
+TreeGenerator/[Rr]elease/
 [Rr]eleases/
 x64/
 x86/
@@ -87,6 +87,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.tlog
 
 # Chutzpah Test files
 _Chutzpah*
