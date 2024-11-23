@@ -2,6 +2,13 @@
 This program is made using c++ and OpenGL. It is mimicking fractal patterns using recursion.
 It has been entirely made during the Tech with Tim code jam.
 
+
+
+
+Example 1             |  Example 2
+:-------------------------:|:-------------------------:
+![image](https://github.com/user-attachments/assets/7c474ea8-2c86-4cc3-972a-ede6d54cea82)  |  ![image](https://github.com/user-attachments/assets/003cdedf-f667-472c-ba27-df3d75be88e6)
+
 ## Usage
 ### To run (for Windows):
 Just run the .exe file in the **build** folder.
